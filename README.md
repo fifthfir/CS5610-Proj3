@@ -1,8 +1,8 @@
 # Project 3
 
 ## Important
-Use `./client/src/utils/tags.js` to modify the categories/tags. Now there is just examples.
-Be sure to do this first and then tell Ruotian so she can modify corresponding parts in her page
+Use `./client/src/utils/tags.js` to modify the categories/tags. Now it hasn't been carefully done.
+Be sure to do this first and then tell Ruotian so she can modify corresponding parts in her page.
 
 ### Author
 Ruotian Zhang, Alptug Guven
