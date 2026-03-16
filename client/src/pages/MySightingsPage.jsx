@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SightingList from "../components/SightingList/SightingList";
 import { getSightings, deleteSighting } from "../services/sightingsService";
+import PropTypes from 'prop-types';
 
 function MySightingsPage({ currentUser }) {
   const [sightings, setSightings] = useState([]);
@@ -42,4 +43,10 @@ function MySightingsPage({ currentUser }) {
   );
 }
 
+MySightingsPage.propTypes = {
+  currentUser: PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }),
+};
 export default MySightingsPage;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createSighting } from "../../services/sightingsService";
 import "./CandidateResults.css";
+import PropTypes from 'prop-types';
 
 function CandidateResults({ results, hasSearched, currentUser }) {
   const [savingId, setSavingId] = useState("");
@@ -119,5 +120,24 @@ function CandidateResults({ results, hasSearched, currentUser }) {
     </section>
   );
 }
+
+CandidateResults.propTypes = {
+  results: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      commonName: PropTypes.string.isRequired,
+      subtype: PropTypes.string,
+      region: PropTypes.string,
+      habitat: PropTypes.string,
+      imageUrl: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  hasSearched: PropTypes.bool.isRequired,
+  currentUser: PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }), 
+};
 
 export default CandidateResults;

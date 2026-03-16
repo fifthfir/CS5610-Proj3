@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginUser, registerUser } from "../services/authService";
+import PropTypes from 'prop-types';
 
 function AuthPage({ onLogin }) {
   const [mode, setMode] = useState("login");
@@ -97,4 +98,7 @@ function AuthPage({ onLogin }) {
   );
 }
 
+AuthPage.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
 export default AuthPage;

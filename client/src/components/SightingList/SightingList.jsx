@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { updateSighting } from "../../services/sightingsService";
 import "./SightingList.css";
+import PropTypes from 'prop-types';
 
 function formatSavedDate(value) {
   if (!value) return "Unknown time";
@@ -216,4 +217,18 @@ function SightingList({ sightings, onDelete, onRefresh }) {
   );
 }
 
+SightingList.propTypes = {
+  sightings: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      speciesName: PropTypes.string,
+      subtype: PropTypes.string,
+      habitat: PropTypes.string,
+      note: PropTypes.string,
+      savedAt: PropTypes.string,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired,
+};
 export default SightingList;

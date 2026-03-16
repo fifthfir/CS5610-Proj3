@@ -1,6 +1,8 @@
+
 import { useState } from "react";
 import { animalSearchOptions } from "../../utils/tags";
 import "./SightingForm.css";
+import PropTypes from 'prop-types';
 
 function SightingForm({ onSearch }) {
   const [formData, setFormData] = useState({
@@ -213,4 +215,7 @@ function SightingForm({ onSearch }) {
   );
 }
 
+SightingForm.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
 export default SightingForm;
