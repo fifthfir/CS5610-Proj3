@@ -13,7 +13,10 @@ WatWildlife
 
 
 ### Design Document
-Please refer to: [Design Document on Google Drive]()
+Please refer to: [Design Document on Google Doc](https://docs.google.com/document/d/1vYnra4bTlV29P2OLqSaK0bk7P75pFIvQBhvHDgEEUAo/edit?tab=t.0)
+
+### Google Slides
+Please refer to: [Intro duction on Google slides](https://docs.google.com/presentation/d/1-p7JDoJz50qN2YJ79GG_FZ4DKbWAXe_EPhGu2KlFoHQ/edit?slide=id.g3c89cae159e_0_129#slide=id.g3c89cae159e_0_129)
 
 ## Project Link
 GitHub repository link: https://github.com/fifthfir/CS5610-Proj3

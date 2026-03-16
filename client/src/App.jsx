@@ -25,7 +25,7 @@ function App() {
     <div className="app-shell">
       <nav className="navbar">
         <div className="brand-block">
-          <div className="brand-mark">🌿</div>
+          <div className="brand-mark">🦊</div>
           <div>
             <h1>WatWildlife</h1>
             <p className="brand-subtitle">Wildlife search and personal sightings tracker</p>
