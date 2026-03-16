@@ -33,6 +33,9 @@ function App() {
         </div>
 
         <div className="nav-links">
+          <button>
+            Browse(PlaceHolder)
+          </button>
           <button
             className={page === "search" ? "nav-button active" : "nav-button"}
             onClick={() => setPage("search")}
