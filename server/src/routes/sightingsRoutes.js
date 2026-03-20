@@ -3,7 +3,7 @@ import {
   getSightings,
   createSighting,
   updateSighting,
-  deleteSighting
+  deleteSighting,
 } from "../controllers/sightingsController.js";
 
 const router = express.Router();

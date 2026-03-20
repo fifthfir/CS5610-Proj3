@@ -1,5 +1,7 @@
 export async function getSightings(userId) {
-  const res = await fetch(`/api/sightings?userId=${encodeURIComponent(userId)}`);
+  const res = await fetch(
+    `/api/sightings?userId=${encodeURIComponent(userId)}`
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch sightings");

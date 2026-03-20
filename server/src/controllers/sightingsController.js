@@ -19,25 +19,24 @@ export async function getSightings(req, res) {
 export async function createSighting(req, res) {
   const db = getDB();
 
-  const {
-    userId,
-    speciesId
-  } = req.body;
+  const { userId, speciesId } = req.body;
 
-  const existing = await db.collection(process.env.SIGHTINGS_COLLECTION).findOne({
-    userId,
-    speciesId
-  });
+  const existing = await db
+    .collection(process.env.SIGHTINGS_COLLECTION)
+    .findOne({
+      userId,
+      speciesId,
+    });
 
   if (existing) {
     return res.status(409).json({
-      message: "This species is already saved in My Sightings."
+      message: "This species is already saved in My Sightings.",
     });
   }
 
   const sighting = {
     ...req.body,
-    savedAt: new Date()
+    savedAt: new Date(),
   };
 
   const result = await db
@@ -46,7 +45,7 @@ export async function createSighting(req, res) {
 
   res.json({
     insertedId: result.insertedId,
-    message: "saved"
+    message: "saved",
   });
 }
 
@@ -55,10 +54,9 @@ export async function updateSighting(req, res) {
   const id = req.params.id;
   const { note } = req.body;
 
-  await db.collection(process.env.SIGHTINGS_COLLECTION).updateOne(
-    { _id: new ObjectId(id) },
-    { $set: { note } }
-  );
+  await db
+    .collection(process.env.SIGHTINGS_COLLECTION)
+    .updateOne({ _id: new ObjectId(id) }, { $set: { note } });
 
   res.json({ message: "updated" });
 }

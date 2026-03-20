@@ -1,0 +1,88 @@
+.species-card {
+  background: #ffffff;
+  border: 1px solid #d8ded9;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(31, 54, 40, 0.05);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.species-card-image-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #edf3ee;
+}
+
+.species-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.species-card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.species-card-type {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #438e5d;
+}
+
+.species-card h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #1f3628;
+}
+
+.species-card-scientific {
+  margin: 0;
+  font-style: italic;
+  color: #6b7f70;
+}
+
+.species-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.species-card-tags span {
+  background: #eef5ef;
+  color: #2f5e3f;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.species-card-description {
+  margin: 0;
+  color: #526b59;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.species-card-button {
+  border: none;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  background: #3f8d57;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.species-card-button:hover {
+  background: #347648;
+}

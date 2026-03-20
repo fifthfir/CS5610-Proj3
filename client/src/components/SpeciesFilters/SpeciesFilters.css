@@ -1,0 +1,69 @@
+.species-filters-card {
+  background: #ffffff;
+  border: 1px solid #d8ded9;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 24px rgba(31, 54, 40, 0.05);
+}
+
+.species-filters-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: #1f3628;
+}
+
+.species-filters-description {
+  margin: 0 0 1rem;
+  color: #526b59;
+  line-height: 1.5;
+}
+
+.species-filters-count {
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: #eef5ef;
+  color: #2f5e3f;
+}
+
+.species-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.species-filter-group label {
+  font-weight: 700;
+  color: #1f3628;
+}
+
+.species-filter-group input,
+.species-filter-group select {
+  border: 1px solid #c9d3cb;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  background: #ffffff;
+}
+
+.species-filter-group input:focus,
+.species-filter-group select:focus {
+  outline: 2px solid #83c19a;
+  border-color: #83c19a;
+}
+
+.species-filter-reset {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  background: #3f8d57;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.species-filter-reset:hover {
+  background: #347648;
+}

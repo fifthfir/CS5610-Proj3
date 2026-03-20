@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { updateSighting } from "../../services/sightingsService";
 import "./SightingList.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function formatSavedDate(value) {
   if (!value) return "Unknown time";
@@ -131,72 +131,82 @@ function SightingList({ sightings, onDelete, onRefresh }) {
               </div>
 
               <div className="trait-grid">
-                <span className="trait-item"><strong>Wings:</strong> {s.hasWings || "unknown"}</span>
-                <span className="trait-item"><strong>Tail:</strong> {s.tailType || "unknown"}</span>
-                <span className="trait-item"><strong>Legs:</strong> {s.legCount || "unknown"}</span>
-                <span className="trait-item"><strong>Size:</strong> {s.size || "unknown"}</span>
-                <span className="trait-item"><strong>Color:</strong> {s.color || "unknown"}</span>
+                <span className="trait-item">
+                  <strong>Wings:</strong> {s.hasWings || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Tail:</strong> {s.tailType || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Legs:</strong> {s.legCount || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Size:</strong> {s.size || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Color:</strong> {s.color || "unknown"}
+                </span>
               </div>
 
               {s.description && (
                 <p className="sighting-description">{s.description}</p>
               )}
 
-            <div className="note-block">
-            <div className="note-header">
-                <strong>Personal Note</strong>
+              <div className="note-block">
+                <div className="note-header">
+                  <strong>Personal Note</strong>
 
-                {editingId !== s._id && (
-                <button
-                    type="button"
-                    className="edit-note-button"
-                    onClick={() => {
-                    setEditingId(s._id);
-                    setDraftNote(s.note || "");
-                    }}
-                >
-                    Edit Note
-                </button>
+                  {editingId !== s._id && (
+                    <button
+                      type="button"
+                      className="edit-note-button"
+                      onClick={() => {
+                        setEditingId(s._id);
+                        setDraftNote(s.note || "");
+                      }}
+                    >
+                      Edit Note
+                    </button>
+                  )}
+                </div>
+
+                {editingId === s._id ? (
+                  <div className="note-editor">
+                    <textarea
+                      className="note-input"
+                      value={draftNote}
+                      onChange={(e) => setDraftNote(e.target.value)}
+                      rows="4"
+                      placeholder="Add a short observation or reminder..."
+                    />
+
+                    <div className="note-actions">
+                      <button
+                        type="button"
+                        className="primary-button"
+                        onClick={() => handleSaveNote(s._id)}
+                      >
+                        Save Note
+                      </button>
+
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={() => {
+                          setEditingId("");
+                          setDraftNote("");
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="saved-note-box">
+                    <p className="saved-note">{s.note || "No note yet."}</p>
+                  </div>
                 )}
-            </div>
-
-            {editingId === s._id ? (
-                <div className="note-editor">
-                <textarea
-                    className="note-input"
-                    value={draftNote}
-                    onChange={(e) => setDraftNote(e.target.value)}
-                    rows="4"
-                    placeholder="Add a short observation or reminder..."
-                />
-
-                <div className="note-actions">
-                    <button
-                    type="button"
-                    className="primary-button"
-                    onClick={() => handleSaveNote(s._id)}
-                    >
-                    Save Note
-                    </button>
-
-                    <button
-                    type="button"
-                    className="secondary-button"
-                    onClick={() => {
-                        setEditingId("");
-                        setDraftNote("");
-                    }}
-                    >
-                    Cancel
-                    </button>
-                </div>
-                </div>
-            ) : (
-                <div className="saved-note-box">
-                <p className="saved-note">{s.note || "No note yet."}</p>
-                </div>
-            )}
-            </div>
+              </div>
 
               <p className="saved-time">Saved: {formatSavedDate(s.savedAt)}</p>
 
@@ -225,10 +235,10 @@ SightingList.propTypes = {
       subtype: PropTypes.string,
       habitat: PropTypes.string,
       note: PropTypes.string,
-      savedAt: PropTypes.string,
+      savedAt: PropTypes.string
     })
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
-  onRefresh: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired
 };
 export default SightingList;

@@ -31,7 +31,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1474511320723-9a56873867b5?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A small adaptable mammal commonly found near forests and open woodland edges."
+      "A small adaptable mammal commonly found near forests and open woodland edges.",
   },
   {
     commonName: "White-tailed Deer",
@@ -47,7 +47,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A common herbivore often seen in forests, meadows, and woodland edges."
+      "A common herbivore often seen in forests, meadows, and woodland edges.",
   },
   {
     commonName: "Gray Wolf",
@@ -63,7 +63,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A social wild canine often associated with forests, mountains, and northern habitats."
+      "A social wild canine often associated with forests, mountains, and northern habitats.",
   },
   {
     commonName: "River Otter",
@@ -79,7 +79,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1564349683136-77e08dba1ef3?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A semi-aquatic mammal often found near rivers, streams, and wetlands."
+      "A semi-aquatic mammal often found near rivers, streams, and wetlands.",
   },
   {
     commonName: "Great Horned Owl",
@@ -95,7 +95,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1501706362039-c6e80948bb5c?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A powerful nocturnal bird of prey recognized by its large eyes and feather tufts."
+      "A powerful nocturnal bird of prey recognized by its large eyes and feather tufts.",
   },
   {
     commonName: "Bald Eagle",
@@ -111,7 +111,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A large raptor associated with lakes, rivers, and open skies."
+      "A large raptor associated with lakes, rivers, and open skies.",
   },
   {
     commonName: "Mallard Duck",
@@ -127,7 +127,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A common water bird frequently found on ponds, wetlands, and park lakes."
+      "A common water bird frequently found on ponds, wetlands, and park lakes.",
   },
   {
     commonName: "American Bullfrog",
@@ -143,7 +143,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1516934024742-b461fba47600?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A large frog usually found near ponds, marshes, and slow-moving water."
+      "A large frog usually found near ponds, marshes, and slow-moving water.",
   },
   {
     commonName: "Garter Snake",
@@ -159,7 +159,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1531386151447-fd76ad50012f?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A slender snake commonly found in grasslands, gardens, and wet areas."
+      "A slender snake commonly found in grasslands, gardens, and wet areas.",
   },
   {
     commonName: "Brown Trout",
@@ -175,7 +175,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A freshwater fish often associated with clean rivers and cool streams."
+      "A freshwater fish often associated with clean rivers and cool streams.",
   },
   {
     commonName: "Monarch Butterfly",
@@ -191,7 +191,7 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=1200&auto=format&fit=crop",
     description:
-      "A recognizable butterfly with orange and black wings, often found near flowers."
+      "A recognizable butterfly with orange and black wings, often found near flowers.",
   },
   {
     commonName: "Praying Mantis",
@@ -207,8 +207,8 @@ const baseSpecies = [
     imageUrl:
       "https://images.unsplash.com/photo-1535930749574-1399327ce78f?q=80&w=1200&auto=format&fit=crop",
     description:
-      "An insect with folded forelegs often found among leaves and grassy vegetation."
-  }
+      "An insect with folded forelegs often found among leaves and grassy vegetation.",
+  },
 ];
 
 const notePool = [
@@ -216,7 +216,7 @@ const notePool = [
   "Observed during a morning hike.",
   "Found close to a shaded area.",
   "Very visible from the path.",
-  "Interesting movement and color pattern."
+  "Interesting movement and color pattern.",
 ];
 
 function randomItem(arr) {
@@ -242,7 +242,7 @@ function buildSpeciesList(totalCount = 240) {
     baseSpecies.forEach((item) => {
       result.push({
         ...item,
-        commonName: i === 0 ? item.commonName : `${item.commonName} ${i + 1}`
+        commonName: i === 0 ? item.commonName : `${item.commonName} ${i + 1}`,
       });
     });
   }
@@ -278,24 +278,23 @@ async function seed() {
   await speciesCollection.createIndex({ color: 1 });
   await speciesCollection.createIndex({ region: 1 });
 
-//   await sightingsCollection.createIndex(
-//     { userId: 1, speciesId: 1 }, 
-//     { unique: true }
-//   );
-
+  //   await sightingsCollection.createIndex(
+  //     { userId: 1, speciesId: 1 },
+  //     { unique: true }
+  //   );
 
   console.log("Seeding demo users...");
   const userDocs = [
     {
       username: "demo1",
       passwordHash: hashPassword("demo123"),
-      createdAt: new Date()
+      createdAt: new Date(),
     },
     {
       username: "demo2",
       passwordHash: hashPassword("demo123"),
-      createdAt: new Date()
-    }
+      createdAt: new Date(),
+    },
   ];
 
   const userInsert = await usersCollection.insertMany(userDocs);
@@ -304,51 +303,40 @@ async function seed() {
   console.log("Loading inserted species...");
   const insertedSpecies = await speciesCollection.find({}).toArray();
 
-console.log("Seeding sightings...");
+  console.log("Seeding sightings...");
 
-const usernameMap = {
-  [userIds[0]]: "demo1",
-  [userIds[1]]: "demo2"
-};
+  const usernameMap = {
+    [userIds[0]]: "demo1",
+    [userIds[1]]: "demo2",
+  };
 
-const allUniquePairs = [];
+  const sightings = Array.from({ length: 1000 }, (_, index) => {
+    const userId = randomItem(userIds);
+    const sp = randomItem(insertedSpecies);
 
-for (const userId of userIds) {
-  for (const sp of insertedSpecies) {
-    allUniquePairs.push({
+    return {
       userId,
       username: usernameMap[userId],
-      species: sp
-    });
-  }
-}
+      speciesId: String(sp._id),
+      speciesName: sp.commonName,
+      category: sp.category,
+      subtype: sp.subtype,
+      habitat: sp.habitat,
+      hasWings: sp.hasWings,
+      tailType: sp.tailType,
+      legCount: sp.legCount,
+      size: sp.size,
+      color: sp.color,
+      region: sp.region,
+      imageUrl: sp.imageUrl,
+      description: sp.description,
+      note: randomItem(notePool),
+      status: index % 5 === 0 ? "mystery" : "saved",
+      savedAt: new Date(),
+    };
+  });
 
-const shuffledPairs = shuffle(allUniquePairs);
-
-const selectedPairs = shuffledPairs.slice(0, 1000);
-
-const sightings = selectedPairs.map(({ userId, username, species: sp }) => ({
-  userId,
-  username,
-  speciesId: String(sp._id),
-  speciesName: sp.commonName,
-  category: sp.category,
-  subtype: sp.subtype,
-  habitat: sp.habitat,
-  hasWings: sp.hasWings,
-  tailType: sp.tailType,
-  legCount: sp.legCount,
-  size: sp.size,
-  color: sp.color,
-  region: sp.region,
-  imageUrl: sp.imageUrl,
-  description: sp.description,
-  note: randomItem(notePool),
-  status: "saved",
-  savedAt: new Date()
-}));
-
-await sightingsCollection.insertMany(sightings);
+  await sightingsCollection.insertMany(sightings);
 
   console.log("Seed complete");
   process.exit(0);

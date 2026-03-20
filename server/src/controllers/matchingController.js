@@ -11,11 +11,11 @@ export async function getMatches(req, res) {
     legCount,
     size,
     color,
-    region
+    region,
   } = req.body;
 
   const query = {
-    category: "animal"
+    category: "animal",
   };
 
   if (subtype) {
