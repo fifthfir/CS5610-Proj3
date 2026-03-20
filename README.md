@@ -41,6 +41,11 @@ Please refer to:
 - View and manage personal saved sightings
 - Admin-only species management for create, edit, and delete operations
 
+## Team Contributions
+
+- **Ruotian Zhang** implemented the **Search** and **My Sightings** features.
+- **Alptug Guven** implemented the **Browse** feature.
+
 ## Screenshots
 ![Login Page](./client/src/assets/screenshots/1-login.png)
 ![Search Page](./client/src/assets/screenshots/3-search.png)
@@ -53,3 +58,35 @@ Please refer to:
 ```bash
 git clone https://github.com/fifthfir/CS5610-Proj3.git
 cd CS5610-Proj3
+```
+
+### 2. Install dependencies
+```bash
+cd client
+npm install
+cd ../server
+npm install
+```
+
+### 3. Get the environment file
+Ask the authors for the `.env` file.
+
+### 4. Seed the database
+If you want to populate the database with sample data, run:
+```
+cd server
+node seed.js
+```
+
+### 5. Start the backend server and the frontend
+```
+cd ../server
+npm start
+cd .../client
+npm run dev
+
+### 6. Open the app
+Open the following URL:
+```
+http://localhost:5173
+```
