@@ -28,6 +28,9 @@ GitHub repository link: https://github.com/fifthfir/CS5610-Proj3
 Deployment link: https://cs5610-proj3.onrender.com/
 
 ## Screenshots
+![Login Page](./client/src/assets/screenshots/1-login.png)
+![Search Page](./client/src/assets/screenshots/3-search.png)
+![My sightings Page](./client/src/assets/screenshots/2-mysightings.png)
 
 ## Instructions to Build & Run
 1. Clone the repo
