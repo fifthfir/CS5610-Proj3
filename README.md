@@ -29,6 +29,7 @@ Please refer to:
 ## Project Links
 - GitHub repository: https://github.com/fifthfir/CS5610-Proj3
 - Deployment: https://cs5610-proj3.onrender.com/
+- Video Demonstration: https://youtu.be/EiyqbrvwmM0
 
 ## Key Features
 - Browse a wildlife encyclopedia of species entries
@@ -41,16 +42,10 @@ Please refer to:
 - Admin-only species management for create, edit, and delete operations
 
 ## Screenshots
-<<<<<<< HEAD
 ![Login Page](./client/src/assets/screenshots/1-login.png)
 ![Search Page](./client/src/assets/screenshots/3-search.png)
 ![My sightings Page](./client/src/assets/screenshots/2-mysightings.png)
-=======
-![Browse Page](docs/screenshots/browse-page.png)
-![Search Page](docs/screenshots/search-page.png)
-![My Sightings Page](docs/screenshots/my-sightings-page.png)
-![Login Page](docs/screenshots/login-page.png)
->>>>>>> 898a4dd (Add species browse page, admin CRUD, linting, formatting, and README updates)
+![Browse Page](./client/src/assets/screenshots/4-browse.png)
 
 ## Instructions to Build and Run Locally
 
