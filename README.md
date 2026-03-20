@@ -84,9 +84,21 @@ cd ../server
 npm start
 cd .../client
 npm run dev
+```
 
 ### 6. Open the app
 Open the following URL:
 ```
 http://localhost:5173
 ```
+
+## About Seed Data
+To support development and testing, we use a scripted seed file `seed.js` to generate demo data instead of relying on a large real-world wildlife dataset.
+
+Species data is created from a curated list of animal records with fixed attributes such as common name, scientific name, subtype, habitat, size, color, and region.
+
+Sightings data is then generated randomly by sampling from the inserted species and demo users.
+
+Each generated sighting copies key species fields and adds randomized values such as user, note, and status.
+
+This approach gives us a large enough dataset for searching, browsing, filtering, and user record features while keeping the project lightweight and easy to set up. Although it does not represent complete real-world wildlife data, it effectively simulates a larger dataset for demonstration, testing, and course project purposes.
