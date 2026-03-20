@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import BrowsePage from "./pages/BrowsePage";
 import SearchPage from "./pages/SearchPage";
 import MySightingsPage from "./pages/MySightingsPage";
 import AuthPage from "./pages/AuthPage";
@@ -28,14 +29,20 @@ function App() {
           <div className="brand-mark">🦊</div>
           <div>
             <h1>WatWildlife</h1>
-            <p className="brand-subtitle">Wildlife search and personal sightings tracker</p>
+            <p className="brand-subtitle">
+              Wildlife search and personal sightings tracker
+            </p>
           </div>
         </div>
 
         <div className="nav-links">
-          <button>
-            Browse(PlaceHolder)
+          <button
+            className={page === "browse" ? "nav-button active" : "nav-button"}
+            onClick={() => setPage("browse")}
+          >
+            Browse
           </button>
+
           <button
             className={page === "search" ? "nav-button active" : "nav-button"}
             onClick={() => setPage("search")}
@@ -70,15 +77,20 @@ function App() {
       <header className="hero">
         <div className="hero-content">
           <p className="eyebrow">Outdoor discovery made easier</p>
-          <h2>Search wildlife, review likely matches, and build your own sightings collection.</h2>
+          <h2>
+            Search wildlife, review likely matches, and build your own sightings
+            collection.
+          </h2>
           <p className="hero-text">
-            WatWildlife helps users narrow species candidates by tags such as category and region,
-            then save interesting discoveries into a personal sightings list.
+            WatWildlife helps users narrow species candidates by tags such as
+            category and region, then save interesting discoveries into a
+            personal sightings list.
           </p>
         </div>
       </header>
 
       <main className="page-container">
+        {page === "browse" && <BrowsePage currentUser={currentUser} />}
         {page === "search" && <SearchPage currentUser={currentUser} />}
         {page === "my" && <MySightingsPage currentUser={currentUser} />}
         {page === "auth" && <AuthPage onLogin={setCurrentUser} />}

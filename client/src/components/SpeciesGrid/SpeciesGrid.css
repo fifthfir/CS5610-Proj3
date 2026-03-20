@@ -1,0 +1,20 @@
+.species-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.species-grid-empty {
+  background: #ffffff;
+  border: 1px solid #d8ded9;
+  border-radius: 24px;
+  padding: 2rem;
+  text-align: center;
+  color: #526b59;
+  box-shadow: 0 10px 24px rgba(31, 54, 40, 0.05);
+}
+
+.species-grid-empty h3 {
+  margin: 0 0 0.5rem;
+  color: #1f3628;
+}

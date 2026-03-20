@@ -1,4 +1,17 @@
+node_modules/
+**/node_modules/
 
-node_modules
+dist/
+build/
+coverage/
+.vite/
+
 .env
-dist
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/

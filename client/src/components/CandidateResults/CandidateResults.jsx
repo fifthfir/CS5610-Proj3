@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createSighting } from "../../services/sightingsService";
 import "./CandidateResults.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function CandidateResults({ results, hasSearched, currentUser }) {
   const [savingId, setSavingId] = useState("");
@@ -48,7 +48,10 @@ function CandidateResults({ results, hasSearched, currentUser }) {
   if (!hasSearched) {
     return (
       <section className="results-section empty-tip">
-        <p>Select filters and click <strong>Find Matches</strong> to see candidate species.</p>
+        <p>
+          Select filters and click <strong>Find Matches</strong> to see
+          candidate species.
+        </p>
       </section>
     );
   }
@@ -89,16 +92,30 @@ function CandidateResults({ results, hasSearched, currentUser }) {
 
               <div className="meta-row">
                 <span className="meta-pill">{r.subtype || "unknown type"}</span>
-                <span className="meta-pill">{r.region || "unknown region"}</span>
-                <span className="meta-pill">{r.habitat || "unknown habitat"}</span>
+                <span className="meta-pill">
+                  {r.region || "unknown region"}
+                </span>
+                <span className="meta-pill">
+                  {r.habitat || "unknown habitat"}
+                </span>
               </div>
 
               <div className="trait-grid">
-                <span className="trait-item"><strong>Wings:</strong> {r.hasWings || "unknown"}</span>
-                <span className="trait-item"><strong>Tail:</strong> {r.tailType || "unknown"}</span>
-                <span className="trait-item"><strong>Legs:</strong> {r.legCount || "unknown"}</span>
-                <span className="trait-item"><strong>Size:</strong> {r.size || "unknown"}</span>
-                <span className="trait-item"><strong>Color:</strong> {r.color || "unknown"}</span>
+                <span className="trait-item">
+                  <strong>Wings:</strong> {r.hasWings || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Tail:</strong> {r.tailType || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Legs:</strong> {r.legCount || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Size:</strong> {r.size || "unknown"}
+                </span>
+                <span className="trait-item">
+                  <strong>Color:</strong> {r.color || "unknown"}
+                </span>
               </div>
 
               <p className="species-description">
@@ -111,7 +128,9 @@ function CandidateResults({ results, hasSearched, currentUser }) {
                 onClick={() => handleSave(r)}
                 disabled={savingId === String(r._id)}
               >
-                {savingId === String(r._id) ? "Saving..." : "Save to My Sightings"}
+                {savingId === String(r._id)
+                  ? "Saving..."
+                  : "Save to My Sightings"}
               </button>
             </div>
           </article>
@@ -130,14 +149,14 @@ CandidateResults.propTypes = {
       region: PropTypes.string,
       habitat: PropTypes.string,
       imageUrl: PropTypes.string,
-      description: PropTypes.string,
+      description: PropTypes.string
     })
   ).isRequired,
   hasSearched: PropTypes.bool.isRequired,
   currentUser: PropTypes.shape({
     userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-  }), 
+    username: PropTypes.string.isRequired
+  })
 };
 
 export default CandidateResults;

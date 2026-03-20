@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check ."
   },
   "dependencies": {
     "prop-types": "^15.8.1",
@@ -13,7 +17,11 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@eslint/js": "",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "",
+    "globals": "",
+    "prettier": "",
     "vite": "^5.2.0"
   }
 }

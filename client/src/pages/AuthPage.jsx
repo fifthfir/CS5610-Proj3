@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loginUser, registerUser } from "../services/authService";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function AuthPage({ onLogin }) {
   const [mode, setMode] = useState("login");
@@ -36,10 +36,14 @@ function AuthPage({ onLogin }) {
       <div className="auth-card">
         <div className="auth-left">
           <p className="eyebrow">Welcome to WatWildlife</p>
-          <h2>{mode === "login" ? "Sign in to your wildlife journal" : "Create your account"}</h2>
+          <h2>
+            {mode === "login"
+              ? "Sign in to your wildlife journal"
+              : "Create your account"}
+          </h2>
           <p className="auth-description">
-            Save candidate species, organize your sightings, and keep personal notes
-            about wildlife you discover outdoors.
+            Save candidate species, organize your sightings, and keep personal
+            notes about wildlife you discover outdoors.
           </p>
 
           <ul className="auth-feature-list">
@@ -70,7 +74,11 @@ function AuthPage({ onLogin }) {
               placeholder="Enter your password"
             />
 
-            <button type="submit" className="primary-button" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="primary-button"
+              disabled={isSubmitting}
+            >
               {isSubmitting
                 ? mode === "login"
                   ? "Logging in..."
@@ -99,6 +107,6 @@ function AuthPage({ onLogin }) {
 }
 
 AuthPage.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired
 };
 export default AuthPage;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import SightingForm from "../components/SightingForm/SightingForm";
 import CandidateResults from "../components/CandidateResults/CandidateResults";
 import { searchMatches } from "../services/matchingService";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function SearchPage({ currentUser }) {
   const [results, setResults] = useState([]);
@@ -34,7 +34,7 @@ function SearchPage({ currentUser }) {
 SearchPage.propTypes = {
   currentUser: PropTypes.shape({
     userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-  }),
+    username: PropTypes.string.isRequired
+  })
 };
 export default SearchPage;
