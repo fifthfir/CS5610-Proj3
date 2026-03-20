@@ -1,15 +1,9 @@
 export const animalSearchOptions = {
-  subtype: [
-    "mammal",
-    "bird",
-    "reptile",
-    "amphibian",
-    "fish",
-    "insect"
-  ],
+  subtype: ["mammal", "bird", "reptile", "amphibian", "fish", "insect"],
   habitat: [
     "forest",
     "grassland",
+    "field",
     "mountain",
     "wetland",
     "river",
@@ -17,32 +11,10 @@ export const animalSearchOptions = {
     "desert",
     "coastal"
   ],
-  hasWings: [
-    "yes",
-    "no"
-  ],
-  tailType: [
-    "none",
-    "short",
-    "long",
-    "bushy",
-    "thin",
-    "striped",
-    "fin-like"
-  ],
-  legCount: [
-    "0",
-    "2",
-    "4",
-    "6",
-    "8",
-    "many"
-  ],
-  size: [
-    "small",
-    "medium",
-    "large"
-  ],
+  hasWings: ["yes", "no"],
+  tailType: ["none", "short", "long", "bushy", "thin", "striped", "fin-like"],
+  legCount: ["0", "2", "4", "6", "8", "many"],
+  size: ["small", "medium", "large"],
   color: [
     "brown",
     "gray",

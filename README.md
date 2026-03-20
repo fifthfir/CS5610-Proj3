@@ -1,74 +1,60 @@
-# Project 3
+# WatWildlife
 
-## Important
-Use `./client/src/utils/tags.js` to modify the categories/tags. Now it hasn't been carefully done.
-Be sure to do this first and then tell Ruotian so she can modify corresponding parts in her page.
+## Authors
+- Ruotian Zhang
+- Alptug Guven
 
-### Author
-Ruotian Zhang, Alptug Guven
-
-### Class Link
+## Class Link
 https://johnguerra.co/classes/webDevelopment_online_spring_2026/
 
-### Project Name
+## Project Name
 WatWildlife
 
-### Project Objective
+## Project Objective
+WatWildlife is a full-stack wildlife identification and sighting tracking web application for hikers, explorers, and nature enthusiasts. Users can search for likely matching wildlife species by filtering observation traits such as animal type, habitat, wings, tail type, number of legs, size, color, and region. Users can also save and manage their own sightings, while administrators can manage the species encyclopedia by creating, editing, and deleting species entries.
 
+The goal of the project is to make wildlife discovery more approachable by combining:
+- a searchable wildlife encyclopedia
+- a candidate-matching search experience
+- a personal sightings tracker with authentication
 
-### Design Document
-Please refer to: [Design Document on Google Doc](https://docs.google.com/document/d/1vYnra4bTlV29P2OLqSaK0bk7P75pFIvQBhvHDgEEUAo/edit?tab=t.0)
+## Design Document
+Please refer to:
+[Design Document on Google Doc](https://docs.google.com/document/d/1vYnra4bTlV29P2OLqSaK0bk7P75pFIvQBhvHDgEEUAo/edit?tab=t.0)
 
-### Google Slides
-Please refer to: [Intro duction on Google slides](https://docs.google.com/presentation/d/1-p7JDoJz50qN2YJ79GG_FZ4DKbWAXe_EPhGu2KlFoHQ/edit?slide=id.g3c89cae159e_0_129#slide=id.g3c89cae159e_0_129)
+## Google Slides
+Please refer to:
+[Introduction on Google Slides](https://docs.google.com/presentation/d/1-p7JDoJz50qN2YJ79GG_FZ4DKbWAXe_EPhGu2KlFoHQ/edit?slide=id.g3c89cae159e_0_129#slide=id.g3c89cae159e_0_129)
 
-## Project Link
-GitHub repository link: https://github.com/fifthfir/CS5610-Proj3
+## Project Links
+- GitHub repository: https://github.com/fifthfir/CS5610-Proj3
+- Deployment: https://cs5610-proj3.onrender.com/
 
-Deployment link: https://cs5610-proj3.onrender.com/
+## Key Features
+- Browse a wildlife encyclopedia of species entries
+- Filter species by traits such as subtype, habitat, size, color, and region
+- View species details in a dedicated modal
+- Search for likely wildlife matches using observation filters
+- Register and log in as a user
+- Save candidate species to My Sightings
+- View and manage personal saved sightings
+- Admin-only species management for create, edit, and delete operations
 
 ## Screenshots
+<<<<<<< HEAD
 ![Login Page](./client/src/assets/screenshots/1-login.png)
 ![Search Page](./client/src/assets/screenshots/3-search.png)
 ![My sightings Page](./client/src/assets/screenshots/2-mysightings.png)
+=======
+![Browse Page](docs/screenshots/browse-page.png)
+![Search Page](docs/screenshots/search-page.png)
+![My Sightings Page](docs/screenshots/my-sightings-page.png)
+![Login Page](docs/screenshots/login-page.png)
+>>>>>>> 898a4dd (Add species browse page, admin CRUD, linting, formatting, and README updates)
 
-## Instructions to Build & Run
-1. Clone the repo
-2. 
-```
-cd client
-npm install
-```
-3. 
-```
-cd ../server
-npm install
-```
-4. Put the `.env` file under `/server`
-5. (Optional) Use `seed.js` to reset and generate new data. It will delete old data.
-6. 
-```
-cd client
-npm run dev
-```
-7. 
-```
-cd ../server
-npm start
-```
-8. Open: `http://localhost:5173/`
+## Instructions to Build and Run Locally
 
-## Original JS Functionality
-
-
-## Team Contributions - CRUD Responsibilities
-
-## GenAI Tool Usage
-
-## Project Structure
-
-## License
-This project is licensed under the MIT License.
-
-## Video Demonstration
-
+### 1. Clone the repository
+```bash
+git clone https://github.com/fifthfir/CS5610-Proj3.git
+cd CS5610-Proj3

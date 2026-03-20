@@ -1,0 +1,115 @@
+.species-form-card {
+  background: #ffffff;
+  border: 1px solid #d8ded9;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 24px rgba(31, 54, 40, 0.05);
+}
+
+.species-form-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.species-form-eyebrow {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #438e5d;
+}
+
+.species-form-header h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1f3628;
+}
+
+.species-form-cancel-top,
+.species-form-cancel {
+  border: 1px solid #c9d3cb;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  background: #ffffff;
+  color: #1f3628;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.species-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.species-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.species-form-field-full {
+  grid-column: 1 / -1;
+}
+
+.species-form-field label {
+  font-weight: 700;
+  color: #1f3628;
+}
+
+.species-form-field input,
+.species-form-field select,
+.species-form-field textarea {
+  border: 1px solid #c9d3cb;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  background: #ffffff;
+}
+
+.species-form-field input:focus,
+.species-form-field select:focus,
+.species-form-field textarea:focus {
+  outline: 2px solid #83c19a;
+  border-color: #83c19a;
+}
+
+.species-form-error {
+  grid-column: 1 / -1;
+  border: 1px solid #e0b5b5;
+  background: #fff7f7;
+  color: #8a2f2f;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+}
+
+.species-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.species-form-submit {
+  border: none;
+  border-radius: 14px;
+  padding: 0.9rem 1.2rem;
+  background: #3f8d57;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.species-form-submit:hover {
+  background: #347648;
+}
+
+@media (max-width: 800px) {
+  .species-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

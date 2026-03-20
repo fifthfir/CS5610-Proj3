@@ -9,16 +9,14 @@ const client = new MongoClient(uri);
 
 let db;
 
-export async function connectDB(){
+export async function connectDB() {
+  await client.connect();
 
-    await client.connect();
+  db = client.db(process.env.DB_NAME);
 
-    db = client.db(process.env.DB_NAME);
-
-    console.log("MongoDB connected");
-
+  console.log("MongoDB connected");
 }
 
-export function getDB(){
-    return db;
+export function getDB() {
+  return db;
 }

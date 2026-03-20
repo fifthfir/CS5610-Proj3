@@ -1,0 +1,131 @@
+.species-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 33, 24, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.species-modal {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.species-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+
+.species-modal-image-wrap {
+  aspect-ratio: 16 / 8;
+  background: #edf3ee;
+}
+
+.species-modal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.species-modal-content {
+  padding: 1.5rem;
+}
+
+.species-modal-type {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #438e5d;
+}
+
+.species-modal-content h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #1f3628;
+}
+
+.species-modal-scientific {
+  margin: 0.4rem 0 1rem;
+  font-style: italic;
+  color: #6b7f70;
+}
+
+.species-modal-description {
+  margin: 0 0 1.25rem;
+  color: #526b59;
+  line-height: 1.7;
+}
+
+.species-modal-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.species-modal-facts div {
+  background: #eef5ef;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  color: #2f5e3f;
+}
+
+.species-modal-admin-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.species-modal-edit,
+.species-modal-delete {
+  border: none;
+  border-radius: 14px;
+  padding: 0.9rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.species-modal-edit {
+  background: #3f8d57;
+  color: #ffffff;
+}
+
+.species-modal-edit:hover {
+  background: #347648;
+}
+
+.species-modal-delete {
+  background: #f6d9d9;
+  color: #8a2f2f;
+}
+
+.species-modal-delete:hover {
+  background: #efc8c8;
+}
+
+@media (max-width: 700px) {
+  .species-modal-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .species-modal-admin-actions {
+    flex-direction: column;
+  }
+}

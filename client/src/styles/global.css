@@ -343,6 +343,7 @@ button {
     align-items: flex-start;
   }
 }
+
 .auth-page {
   display: flex;
   justify-content: center;
