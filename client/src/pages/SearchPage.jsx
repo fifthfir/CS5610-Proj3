@@ -33,8 +33,14 @@ function SearchPage({ currentUser }) {
 
 SearchPage.propTypes = {
   currentUser: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
-  })
+    userId: PropTypes.string,
+    username: PropTypes.string,
+    role: PropTypes.string,
+  }),
 };
+
+SearchPage.defaultProps = {
+  currentUser: null,
+};
+
 export default SearchPage;

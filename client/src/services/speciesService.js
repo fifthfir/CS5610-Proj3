@@ -17,7 +17,7 @@ async function handleResponse(response) {
 
     try {
       const errorData = await response.json();
-      errorMessage = errorData.error || errorMessage;
+      errorMessage = errorData.error || errorData.message || errorMessage;
     } catch {
       // ignore JSON parse failure
     }
@@ -28,50 +28,51 @@ async function handleResponse(response) {
   return response.json();
 }
 
-function buildAdminHeaders(currentUser) {
-  return {
-    "Content-Type": "application/json",
-    "x-username": currentUser?.username || ""
-  };
-}
-
 export async function fetchSpecies(filters = {}) {
   const queryString = buildQueryString(filters);
-  const response = await fetch(`/api/species${queryString}`);
+  const response = await fetch(`/api/species${queryString}`, {
+    credentials: "include",
+  });
   return handleResponse(response);
 }
 
 export async function fetchSpeciesById(id) {
-  const response = await fetch(`/api/species/${id}`);
+  const response = await fetch(`/api/species/${id}`, {
+    credentials: "include",
+  });
   return handleResponse(response);
 }
 
-export async function createSpecies(currentUser, speciesData) {
+export async function createSpecies(speciesData) {
   const response = await fetch("/api/species", {
     method: "POST",
-    headers: buildAdminHeaders(currentUser),
-    body: JSON.stringify(speciesData)
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(speciesData),
   });
 
   return handleResponse(response);
 }
 
-export async function updateSpecies(currentUser, id, speciesData) {
+export async function updateSpecies(id, speciesData) {
   const response = await fetch(`/api/species/${id}`, {
     method: "PUT",
-    headers: buildAdminHeaders(currentUser),
-    body: JSON.stringify(speciesData)
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(speciesData),
   });
 
   return handleResponse(response);
 }
 
-export async function deleteSpecies(currentUser, id) {
+export async function deleteSpecies(id) {
   const response = await fetch(`/api/species/${id}`, {
     method: "DELETE",
-    headers: {
-      "x-username": currentUser?.username || ""
-    }
+    credentials: "include",
   });
 
   return handleResponse(response);

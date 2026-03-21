@@ -3,23 +3,64 @@ import BrowsePage from "./pages/BrowsePage";
 import SearchPage from "./pages/SearchPage";
 import MySightingsPage from "./pages/MySightingsPage";
 import AuthPage from "./pages/AuthPage";
+import { getCurrentUser, logoutUser } from "./services/authService";
 import "./styles/global.css";
 
 function App() {
   const [page, setPage] = useState("search");
   const [currentUser, setCurrentUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("watwildlifeUser");
-    if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
+    let cancelled = false;
+
+    async function loadCurrentUser() {
+      try {
+        const user = await getCurrentUser();
+
+        if (!cancelled) {
+          setCurrentUser(user);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setCurrentUser(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setAuthChecked(true);
+        }
+      }
     }
+
+    loadCurrentUser();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  function handleLogout() {
-    localStorage.removeItem("watwildlifeUser");
-    setCurrentUser(null);
+  async function handleLogout() {
+    try {
+      await logoutUser();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      setCurrentUser(null);
+      setPage("search");
+    }
+  }
+
+  function handleLogin(user) {
+    setCurrentUser(user);
     setPage("search");
+  }
+
+  if (!authChecked) {
+    return (
+      <div className="app-shell">
+        <main className="page-container">Loading...</main>
+      </div>
+    );
   }
 
   return (
@@ -93,7 +134,7 @@ function App() {
         {page === "browse" && <BrowsePage currentUser={currentUser} />}
         {page === "search" && <SearchPage currentUser={currentUser} />}
         {page === "my" && <MySightingsPage currentUser={currentUser} />}
-        {page === "auth" && <AuthPage onLogin={setCurrentUser} />}
+        {page === "auth" && <AuthPage onLogin={handleLogin} />}
       </main>
     </div>
   );

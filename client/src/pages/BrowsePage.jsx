@@ -8,7 +8,7 @@ import {
   fetchSpecies,
   createSpecies,
   updateSpecies,
-  deleteSpecies
+  deleteSpecies,
 } from "../services/speciesService";
 import "./BrowsePage.css";
 
@@ -21,7 +21,7 @@ const initialFilters = {
   legCount: "",
   size: "",
   color: "",
-  region: ""
+  region: "",
 };
 
 function BrowsePage({ currentUser }) {
@@ -73,7 +73,7 @@ function BrowsePage({ currentUser }) {
   function handleFilterChange(field, value) {
     setFilters((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   }
 
@@ -107,9 +107,9 @@ function BrowsePage({ currentUser }) {
       setFormError("");
 
       if (formMode === "edit" && editingSpecies?._id) {
-        await updateSpecies(currentUser, editingSpecies._id, formData);
+        await updateSpecies(editingSpecies._id, formData);
       } else {
-        await createSpecies(currentUser, formData);
+        await createSpecies(formData);
       }
 
       handleCloseForm();
@@ -131,7 +131,7 @@ function BrowsePage({ currentUser }) {
     }
 
     try {
-      await deleteSpecies(currentUser, speciesItem._id);
+      await deleteSpecies(speciesItem._id);
 
       if (selectedSpecies?._id === speciesItem._id) {
         setSelectedSpecies(null);
@@ -226,12 +226,12 @@ BrowsePage.propTypes = {
   currentUser: PropTypes.shape({
     userId: PropTypes.string,
     username: PropTypes.string,
-    role: PropTypes.string
-  })
+    role: PropTypes.string,
+  }),
 };
 
 BrowsePage.defaultProps = {
-  currentUser: null
+  currentUser: null,
 };
 
 export default BrowsePage;

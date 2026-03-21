@@ -5,8 +5,11 @@ import {
   updateSighting,
   deleteSighting,
 } from "../controllers/sightingsController.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
+
+router.use(requireAuth);
 
 router.get("/", getSightings);
 router.post("/", createSighting);

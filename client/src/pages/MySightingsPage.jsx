@@ -12,7 +12,7 @@ function MySightingsPage({ currentUser }) {
       return;
     }
 
-    const data = await getSightings(currentUser.userId);
+    const data = await getSightings();
     setSightings(data);
   }
 
@@ -45,8 +45,13 @@ function MySightingsPage({ currentUser }) {
 
 MySightingsPage.propTypes = {
   currentUser: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
-  })
+    userId: PropTypes.string,
+    username: PropTypes.string,
+  }),
 };
+
+MySightingsPage.defaultProps = {
+  currentUser: null,
+};
+
 export default MySightingsPage;

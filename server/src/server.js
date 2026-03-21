@@ -1,7 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import path from "path";
+import session from "express-session";
 import { fileURLToPath } from "url";
 import { connectDB } from "./config/mongo.js";
+import passport, { configurePassport } from "./config/passport.js";
 
 import sightingsRoutes from "./routes/sightingsRoutes.js";
 import matchingRoutes from "./routes/matchingRoutes.js";
@@ -10,7 +15,27 @@ import speciesRoutes from "./routes/speciesRoutes.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(express.json());
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "watwildlife-session-secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  })
+);
+
+configurePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/sightings", sightingsRoutes);
 app.use("/api/matching", matchingRoutes);
@@ -28,6 +53,11 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(clientDistPath, "index.html"));
   });
 }
+
+app.use((error, req, res, next) => {
+  console.error(error);
+  res.status(500).json({ message: "Server error." });
+});
 
 const PORT = process.env.PORT || 3000;
 

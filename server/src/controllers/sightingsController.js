@@ -3,13 +3,11 @@ import { ObjectId } from "mongodb";
 
 export async function getSightings(req, res) {
   const db = getDB();
-  const userId = req.query.userId;
-
-  const query = userId ? { userId } : {};
+  const userId = String(req.user._id);
 
   const sightings = await db
     .collection(process.env.SIGHTINGS_COLLECTION)
-    .find(query)
+    .find({ userId })
     .sort({ savedAt: -1 })
     .toArray();
 
@@ -18,8 +16,14 @@ export async function getSightings(req, res) {
 
 export async function createSighting(req, res) {
   const db = getDB();
+  const userId = String(req.user._id);
+  const username = req.user.username;
 
-  const { userId, speciesId } = req.body;
+  const { speciesId } = req.body;
+
+  if (!speciesId) {
+    return res.status(400).json({ message: "speciesId is required." });
+  }
 
   const existing = await db
     .collection(process.env.SIGHTINGS_COLLECTION)
@@ -36,6 +40,8 @@ export async function createSighting(req, res) {
 
   const sighting = {
     ...req.body,
+    userId,
+    username,
     savedAt: new Date(),
   };
 
@@ -52,11 +58,19 @@ export async function createSighting(req, res) {
 export async function updateSighting(req, res) {
   const db = getDB();
   const id = req.params.id;
+  const userId = String(req.user._id);
   const { note } = req.body;
 
-  await db
+  const result = await db
     .collection(process.env.SIGHTINGS_COLLECTION)
-    .updateOne({ _id: new ObjectId(id) }, { $set: { note } });
+    .updateOne(
+      { _id: new ObjectId(id), userId },
+      { $set: { note: note || "" } }
+    );
+
+  if (result.matchedCount === 0) {
+    return res.status(404).json({ message: "Sighting not found." });
+  }
 
   res.json({ message: "updated" });
 }
@@ -64,10 +78,15 @@ export async function updateSighting(req, res) {
 export async function deleteSighting(req, res) {
   const db = getDB();
   const id = req.params.id;
+  const userId = String(req.user._id);
 
-  await db
+  const result = await db
     .collection(process.env.SIGHTINGS_COLLECTION)
-    .deleteOne({ _id: new ObjectId(id) });
+    .deleteOne({ _id: new ObjectId(id), userId });
+
+  if (result.deletedCount === 0) {
+    return res.status(404).json({ message: "Sighting not found." });
+  }
 
   res.json({ message: "deleted" });
 }

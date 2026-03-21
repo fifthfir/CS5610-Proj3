@@ -1,82 +1,117 @@
-import crypto from "crypto";
+import passport from "../config/passport.js";
 import { getDB } from "../config/mongo.js";
+import {
+  buildSafeUser,
+  getRoleForUsername,
+  hashPassword,
+} from "../config/passport.js";
 
-function hashPassword(password) {
-  return crypto.createHash("sha256").update(password).digest("hex");
+export async function registerUser(req, res, next) {
+  try {
+    const db = getDB();
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ message: "Username and password are required." });
+    }
+
+    const trimmedUsername = username.trim();
+
+    if (!trimmedUsername) {
+      return res.status(400).json({ message: "Username is required." });
+    }
+
+    const existingUser = await db
+      .collection(process.env.USERS_COLLECTION)
+      .findOne({ username: trimmedUsername });
+
+    if (existingUser) {
+      return res.status(409).json({ message: "Username already exists." });
+    }
+
+    const newUser = {
+      username: trimmedUsername,
+      passwordHash: hashPassword(password),
+      createdAt: new Date(),
+    };
+
+    const result = await db
+      .collection(process.env.USERS_COLLECTION)
+      .insertOne(newUser);
+
+    const safeUser = {
+      _id: result.insertedId,
+      username: trimmedUsername,
+      role: getRoleForUsername(trimmedUsername),
+    };
+
+    req.login(safeUser, (error) => {
+      if (error) {
+        return next(error);
+      }
+
+      return res.json({
+        message: "registered",
+        ...buildSafeUser(safeUser),
+      });
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
-function getAdminUsernames() {
-  return (process.env.ADMIN_USERNAMES || "")
-    .split(",")
-    .map((name) => name.trim().toLowerCase())
-    .filter(Boolean);
+export function loginUser(req, res, next) {
+  passport.authenticate("local", (error, user, info) => {
+    if (error) {
+      return next(error);
+    }
+
+    if (!user) {
+      return res.status(401).json({
+        message: info?.message || "Invalid username or password.",
+      });
+    }
+
+    req.login(user, (loginError) => {
+      if (loginError) {
+        return next(loginError);
+      }
+
+      return res.json({
+        message: "logged_in",
+        ...buildSafeUser(user),
+      });
+    });
+  })(req, res, next);
 }
 
-function getRoleForUsername(username) {
-  const adminUsernames = getAdminUsernames();
-  return adminUsernames.includes(username.trim().toLowerCase())
-    ? "admin"
-    : "user";
+export function getCurrentUser(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ message: "Not authenticated." });
+  }
+
+  return res.json(buildSafeUser(req.user));
 }
 
-export async function registerUser(req, res) {
-  const db = getDB();
-  const { username, password } = req.body;
+export function logoutUser(req, res, next) {
+  req.logout((error) => {
+    if (error) {
+      return next(error);
+    }
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: "Username and password are required." });
-  }
+    if (req.session) {
+      req.session.destroy((sessionError) => {
+        if (sessionError) {
+          return next(sessionError);
+        }
 
-  const trimmedUsername = username.trim();
-
-  const existingUser = await db
-    .collection(process.env.USERS_COLLECTION)
-    .findOne({ username: trimmedUsername });
-
-  if (existingUser) {
-    return res.status(409).json({ message: "Username already exists." });
-  }
-
-  const result = await db.collection(process.env.USERS_COLLECTION).insertOne({
-    username: trimmedUsername,
-    passwordHash: hashPassword(password),
-    createdAt: new Date(),
-  });
-
-  res.json({
-    message: "registered",
-    userId: String(result.insertedId),
-    username: trimmedUsername,
-    role: getRoleForUsername(trimmedUsername),
-  });
-}
-
-export async function loginUser(req, res) {
-  const db = getDB();
-  const { username, password } = req.body;
-
-  const trimmedUsername = username.trim();
-
-  const user = await db
-    .collection(process.env.USERS_COLLECTION)
-    .findOne({ username: trimmedUsername });
-
-  if (!user) {
-    return res.status(401).json({ message: "Invalid username or password." });
-  }
-
-  const incomingHash = hashPassword(password);
-
-  if (incomingHash !== user.passwordHash) {
-    return res.status(401).json({ message: "Invalid username or password." });
-  }
-
-  res.json({
-    message: "logged_in",
-    userId: String(user._id),
-    username: user.username,
-    role: getRoleForUsername(user.username),
+        res.clearCookie("connect.sid");
+        return res.json({ message: "logged_out" });
+      });
+    } else {
+      return res.json({ message: "logged_out" });
+    }
   });
 }

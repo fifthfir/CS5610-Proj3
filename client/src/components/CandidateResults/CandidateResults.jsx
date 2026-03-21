@@ -18,8 +18,6 @@ function CandidateResults({ results, hasSearched, currentUser }) {
 
     try {
       await createSighting({
-        userId: currentUser.userId,
-        username: currentUser.username,
         speciesId: String(species._id),
         speciesName: species.commonName,
         category: species.category || "",
@@ -34,7 +32,7 @@ function CandidateResults({ results, hasSearched, currentUser }) {
         imageUrl: species.imageUrl || "",
         description: species.description || "",
         note: "",
-        status: "saved"
+        status: "saved",
       });
 
       setMessage(`Saved ${species.commonName} to My Sightings.`);
@@ -149,14 +147,19 @@ CandidateResults.propTypes = {
       region: PropTypes.string,
       habitat: PropTypes.string,
       imageUrl: PropTypes.string,
-      description: PropTypes.string
+      description: PropTypes.string,
     })
   ).isRequired,
   hasSearched: PropTypes.bool.isRequired,
   currentUser: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired
-  })
+    userId: PropTypes.string,
+    username: PropTypes.string,
+    role: PropTypes.string,
+  }),
+};
+
+CandidateResults.defaultProps = {
+  currentUser: null,
 };
 
 export default CandidateResults;

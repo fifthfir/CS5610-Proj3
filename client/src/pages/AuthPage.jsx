@@ -22,8 +22,9 @@ function AuthPage({ onLogin }) {
           ? await loginUser(payload)
           : await registerUser(payload);
 
-      localStorage.setItem("watwildlifeUser", JSON.stringify(result));
       onLogin(result);
+      setUsername("");
+      setPassword("");
     } catch (error) {
       setMessage(error.message);
     } finally {
@@ -107,6 +108,7 @@ function AuthPage({ onLogin }) {
 }
 
 AuthPage.propTypes = {
-  onLogin: PropTypes.func.isRequired
+  onLogin: PropTypes.func.isRequired,
 };
+
 export default AuthPage;
