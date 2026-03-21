@@ -6,9 +6,13 @@ build/
 coverage/
 .vite/
 
+# Ignore real environment files
 .env
-.env.*
+server/.env
+
+# But keep example env files tracked
 !.env.example
+!server/.env.example
 
 .DS_Store
 Thumbs.db
