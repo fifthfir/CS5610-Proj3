@@ -194,7 +194,7 @@ You should usually leave these unchanged:
 - `ADMIN_USERNAMES=demo1`
 
 ## About Seed Data
-To support development and testing, we use a scripted seed file `seed.js` to generate demo data instead of relying on a large real-world wildlife dataset.
+To support development and testing, we use a scripted seed file `seed.js` to generate 1000+ demo data instead of relying on a large real-world wildlife dataset.
 
 Species data is created from a curated list of animal records with fixed attributes such as common name, scientific name, subtype, habitat, size, color, and region.
 
