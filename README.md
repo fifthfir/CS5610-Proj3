@@ -41,6 +41,38 @@ Please refer to:
 - View and manage personal saved sightings
 - Admin-only species management for create, edit, and delete operations
 
+## Accessibility & Usability Improvements
+
+To improve usability and meet accessibility requirements, several updates were made to ensure the application can be fully used with a keyboard and passes automated accessibility checks (Lighthouse / axe):
+
+### 1. Keyboard Accessibility
+- All interactive elements use semantic HTML (`<button>`, `<input>`, `<select>`) instead of non-standard elements.
+- Users can navigate the entire application using only the keyboard (`Tab`, `Shift+Tab`, `Enter`, `Space`).
+- Focus states are clearly visible for all interactive elements.
+
+![Keyboard clean](./client/src/assets/screenshots/5-keyboard.png)
+
+### 2. Semantic Structure Improvements
+- Replaced non-semantic layouts with proper structures such as `<main>`, `<section>`, `<fieldset>`, and `<ul>/<li>`.
+- Card grids (Search, Browse, My Sightings) now use `<ul>` and `<li>` for better accessibility and screen reader support.
+- Removed default list styling (padding and bullets) via CSS to maintain visual layout while preserving semantic meaning.
+
+### 3. Form and Label Enhancements
+- Added proper `<label>` elements for all form inputs.
+- Improved filter clarity (e.g., Region vs Habitat) with clearer labeling and descriptions.
+- Grouped related inputs using `<fieldset>` and `<legend>`.
+
+### 4. ARIA and Screen Reader Support
+- Added `aria-label`, `aria-labelledby`, and `aria-describedby` where needed.
+- Implemented `aria-live` regions to announce dynamic updates (e.g., saving notes, deleting sightings, search results).
+- Improved accessibility of modals and interactive sections.
+
+### 5. Consistent UI Structure
+- Unified card grid layout across Search, Browse, and My Sightings pages.
+- Standardized spacing, alignment, and component structure for a more consistent user experience.
+
+These changes directly address the project requirements for keyboard accessibility and accessibility testing compliance.
+
 ## Team Contributions
 - **Ruotian Zhang** implemented the **Search** and **My Sightings** features.
 - **Alptug Guven** implemented the **Browse** feature.
