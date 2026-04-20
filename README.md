@@ -71,7 +71,11 @@ To improve usability and meet accessibility requirements, several updates were m
 - Unified card grid layout across Search, Browse, and My Sightings pages.
 - Standardized spacing, alignment, and component structure for a more consistent user experience.
 
-These changes directly address the project requirements for keyboard accessibility and accessibility testing compliance.
+### Usability Improvements
+
+- Clarified the distinction between **Login** and **Register** by adding prominent red text guidance on the authentication page, helping users immediately understand which action they are performing.
+
+- Improved the search experience by adding clear descriptions for **Habitat** and **Region** filters, helping users distinguish between environment type and geographic location.
 
 ## Team Contributions
 - **Ruotian Zhang** implemented the **Search** and **My Sightings** features.
