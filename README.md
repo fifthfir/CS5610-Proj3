@@ -28,7 +28,7 @@ Please refer to:
 
 ## Project Links
 - GitHub repository: https://github.com/fifthfir/CS5610-Proj3
-- Deployment: https://cs5610-proj3.onrender.com/
+- Deployment: https://cs5610-proj-final.onrender.com
 - Video Demonstration: https://youtu.be/EiyqbrvwmM0
 
 ## Key Features
