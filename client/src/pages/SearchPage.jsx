@@ -1,17 +1,25 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import SightingForm from "../components/SightingForm/SightingForm";
 import CandidateResults from "../components/CandidateResults/CandidateResults";
 import { searchMatches } from "../services/matchingService";
-import PropTypes from "prop-types";
 
 function SearchPage({ currentUser }) {
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [searchError, setSearchError] = useState("");
 
   async function handleSearch(data) {
-    const res = await searchMatches(data);
-    setResults(res);
-    setHasSearched(true);
+    try {
+      setSearchError("");
+      const res = await searchMatches(data);
+      setResults(res);
+      setHasSearched(true);
+    } catch (error) {
+      setResults([]);
+      setHasSearched(true);
+      setSearchError(error.message || "Failed to search for matches.");
+    }
   }
 
   return (
@@ -21,6 +29,12 @@ function SearchPage({ currentUser }) {
       </section>
 
       <section className="results-panel">
+        {searchError && (
+          <div className="status-message" role="alert" aria-live="polite">
+            {searchError}
+          </div>
+        )}
+
         <CandidateResults
           results={results}
           hasSearched={hasSearched}

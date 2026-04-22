@@ -11,7 +11,7 @@
 
 .species-modal {
   position: relative;
-  width: min(900px, 100%);
+  width: min(960px, 100%);
   max-height: 90vh;
   overflow-y: auto;
   background: #ffffff;
@@ -76,8 +76,9 @@
 
 .species-modal-facts {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.85rem;
+  margin-bottom: 1.25rem;
 }
 
 .species-modal-facts div {
@@ -87,12 +88,39 @@
   color: #2f5e3f;
 }
 
-.species-modal-admin-actions {
+.species-modal-sections {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.species-modal-section {
+  border: 1px solid #d8ded9;
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  background: #fcfdfc;
+}
+
+.species-modal-section h3 {
+  margin: 0 0 0.55rem;
+  color: #1f3628;
+  font-size: 1.05rem;
+}
+
+.species-modal-section p {
+  margin: 0;
+  color: #526b59;
+  line-height: 1.7;
+}
+
+.species-modal-actions {
   margin-top: 1.25rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
 }
 
+.species-modal-save,
 .species-modal-edit,
 .species-modal-delete {
   border: none;
@@ -102,13 +130,20 @@
   cursor: pointer;
 }
 
+.species-modal-save,
 .species-modal-edit {
   background: #3f8d57;
   color: #ffffff;
 }
 
+.species-modal-save:hover,
 .species-modal-edit:hover {
   background: #347648;
+}
+
+.species-modal-save:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .species-modal-delete {
@@ -120,12 +155,18 @@
   background: #efc8c8;
 }
 
+@media (max-width: 900px) {
+  .species-modal-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 700px) {
   .species-modal-facts {
     grid-template-columns: 1fr;
   }
 
-  .species-modal-admin-actions {
+  .species-modal-actions {
     flex-direction: column;
   }
 }

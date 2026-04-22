@@ -54,7 +54,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use((error, req, res, next) => {
+app.use((error, req, res, _next) => {
   console.error(error);
   res.status(500).json({ message: "Server error." });
 });
