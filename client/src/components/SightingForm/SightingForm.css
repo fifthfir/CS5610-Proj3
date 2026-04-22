@@ -1,54 +1,107 @@
-.form-card form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.form-card {
+  background: #ffffff;
+  border: 1px solid #d9e2d9;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 12px 30px rgba(20, 60, 30, 0.06);
+}
+
+.section-header h2 {
+  margin: 0 0 8px;
+}
+
+.section-header p {
+  margin: 0 0 22px;
+  color: #4e5d53;
+  line-height: 1.7;
 }
 
 .search-form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px;
+}
+
+.search-fieldset {
+  border: 1px solid #dce5dc;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.search-fieldset legend {
+  padding: 0 8px;
+  font-weight: 700;
+  color: #2f7d4b;
 }
 
 .field-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.field-group:last-child {
+  margin-bottom: 0;
 }
 
 .field-group label {
   font-weight: 600;
-  font-size: 14px;
+  margin-bottom: 6px;
 }
 
-.field-group select {
+.field-help {
+  margin: 0 0 8px;
+  font-size: 0.92rem;
+  color: #66756b;
+}
+
+.field-group select,
+.field-group input,
+.field-group textarea {
   padding: 12px 14px;
+  border: 1px solid #ccd7cc;
   border-radius: 10px;
-  border: 1px solid #d8e2d8;
-  background: #fff;
+  font: inherit;
+}
+
+.field-group select:focus,
+.field-group input:focus,
+.field-group textarea:focus {
+  outline: 2px solid #8cc8a0;
+  outline-offset: 2px;
+  border-color: #8cc8a0;
 }
 
 .form-actions {
-  grid-column: 1 / -1;
   display: flex;
   gap: 12px;
-  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 12px 18px;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button {
+  border: none;
+  background: #2f7d4b;
+  color: #ffffff;
+}
+
+.primary-button:hover {
+  background: #276a3f;
 }
 
 .secondary-button {
-  border: 1px solid #d8e2d8;
-  background: white;
-  color: #1f2a22;
-  border-radius: 10px;
-  padding: 11px 16px;
+  border: 1px solid #bfcabf;
+  background: #ffffff;
+  color: #324137;
 }
 
 .secondary-button:hover {
-  background: #f4f7f3;
-}
-
-@media (max-width: 760px) {
-  .search-form-grid {
-    grid-template-columns: 1fr;
-  }
+  background: #f6f9f6;
 }
