@@ -27,12 +27,12 @@ Please refer to:
 
 ## Google Slides
 Please refer to:
-[Introduction on Google Slides](https://docs.google.com/presentation/d/1-p7JDoJz50qN2YJ79GG_FZ4DKbWAXe_EPhGu2KlFoHQ/edit?slide=id.g3c89cae159e_0_129#slide=id.g3c89cae159e_0_129)
+[Introduction on Google Slides](https://docs.google.com/presentation/d/1sVIhxJYPvdVyG5drjzKQYWzn-E5Tl2q14FfP0V_P7Eg/edit?slide=id.g3c89cae159e_0_129#slide=id.g3c89cae159e_0_129)
 
 ## Project Links
-- GitHub repository: https://github.com/fifthfir/CS5610-Proj3
+- GitHub repository: https://github.com/fifthfir/CS5610-Proj3/tree/final-proj
 - Deployment: https://cs5610-proj-final.onrender.com
-- Video Demonstration: https://youtu.be/EiyqbrvwmM0
+- Video Demonstration: https://youtu.be/FJRJgvjAvF8
 
 ## Key Features
 
