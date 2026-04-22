@@ -133,7 +133,7 @@ For the final iteration, both members also contributed to design, usability, acc
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/fifthfir/CS5610-Proj3.git
+git clone https://github.com/fifthfir/CS5610-Proj3/tree/final-proj
 cd CS5610-Proj3
 cd CS5610-Proj3
 ```
