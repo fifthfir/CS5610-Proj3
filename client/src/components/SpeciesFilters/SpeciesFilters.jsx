@@ -11,7 +11,20 @@ const filterLabels = {
   legCount: "Number of Legs",
   size: "Size",
   color: "Main Color",
-  region: "Region"
+  region: "Region",
+  toxicOrVenomous: "Toxic or Venomous",
+};
+
+const filterHelp = {
+  subtype: "Useful when you want to browse a broad animal group first.",
+  habitat: "Type of environment the animal is usually associated with.",
+  hasWings: "Helpful for quickly separating birds, insects, and many mammals or reptiles.",
+  tailType: "Visible tail shape or length.",
+  legCount: "Use the visible number of legs when comparing species.",
+  size: "General body size rather than exact measurements.",
+  color: "Main visible body color.",
+  region: "Broader geographic area where the animal is commonly associated.",
+  toxicOrVenomous: "A simple safety clue for species known for venom or toxin risk.",
 };
 
 function formatOption(option) {
@@ -26,8 +39,8 @@ function SpeciesFilters({ filters, onFilterChange, onReset, resultCount }) {
     <div className="species-filters-card">
       <h3>Browse Species</h3>
       <p className="species-filters-description">
-        Filter the encyclopedia using the same observation traits used in the
-        search page.
+        Browse is for relaxed field-guide exploration. Use Search when you do
+        not know the animal’s name and want likely matches from observed traits.
       </p>
 
       <div className="species-filters-count">
@@ -48,6 +61,11 @@ function SpeciesFilters({ filters, onFilterChange, onReset, resultCount }) {
       {Object.entries(animalSearchOptions).map(([field, options]) => (
         <div className="species-filter-group" key={field}>
           <label htmlFor={`browse-${field}`}>{filterLabels[field]}</label>
+
+          {filterHelp[field] && (
+            <p className="field-help">{filterHelp[field]}</p>
+          )}
+
           <select
             id={`browse-${field}`}
             value={filters[field]}
@@ -63,7 +81,7 @@ function SpeciesFilters({ filters, onFilterChange, onReset, resultCount }) {
         </div>
       ))}
 
-      <button className="species-filter-reset" onClick={onReset}>
+      <button type="button" className="species-filter-reset" onClick={onReset}>
         Reset Filters
       </button>
     </div>
@@ -80,11 +98,12 @@ SpeciesFilters.propTypes = {
     legCount: PropTypes.string.isRequired,
     size: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
-    region: PropTypes.string.isRequired
+    region: PropTypes.string.isRequired,
+    toxicOrVenomous: PropTypes.string.isRequired,
   }).isRequired,
   onFilterChange: PropTypes.func.isRequired,
   onReset: PropTypes.func.isRequired,
-  resultCount: PropTypes.number.isRequired
+  resultCount: PropTypes.number.isRequired,
 };
 
 export default SpeciesFilters;

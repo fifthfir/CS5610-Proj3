@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { animalSearchOptions } from "../../utils/tags";
 import "./SpeciesForm.css";
 
-const categoryOptions = ["animal", "plant", "fungi"];
-
 const emptyForm = {
   commonName: "",
   scientificName: "",
@@ -17,8 +15,17 @@ const emptyForm = {
   size: "",
   color: "",
   region: "",
+  toxicOrVenomous: "no",
   imageUrl: "",
-  description: ""
+  description: "",
+  overview: "",
+  appearance: "",
+  habitatDetails: "",
+  regionDetails: "",
+  behavior: "",
+  identificationTips: "",
+  riskToHumans: "",
+  benefitsToHumans: "",
 };
 
 function formatOption(option) {
@@ -34,7 +41,7 @@ function SpeciesForm({
   onSubmit,
   onCancel,
   isSaving,
-  errorMessage
+  errorMessage,
 }) {
   const [formData, setFormData] = useState(emptyForm);
 
@@ -43,7 +50,7 @@ function SpeciesForm({
       setFormData({
         commonName: initialData.commonName || "",
         scientificName: initialData.scientificName || "",
-        category: initialData.category || "animal",
+        category: "animal",
         subtype: initialData.subtype || "",
         habitat: initialData.habitat || "",
         hasWings: initialData.hasWings || "no",
@@ -52,8 +59,17 @@ function SpeciesForm({
         size: initialData.size || "",
         color: initialData.color || "",
         region: initialData.region || "",
+        toxicOrVenomous: initialData.toxicOrVenomous || "no",
         imageUrl: initialData.imageUrl || "",
-        description: initialData.description || ""
+        description: initialData.description || "",
+        overview: initialData.overview || "",
+        appearance: initialData.appearance || "",
+        habitatDetails: initialData.habitatDetails || "",
+        regionDetails: initialData.regionDetails || "",
+        behavior: initialData.behavior || "",
+        identificationTips: initialData.identificationTips || "",
+        riskToHumans: initialData.riskToHumans || "",
+        benefitsToHumans: initialData.benefitsToHumans || "",
       });
     } else {
       setFormData(emptyForm);
@@ -63,7 +79,7 @@ function SpeciesForm({
   function handleChange(field, value) {
     setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   }
 
@@ -110,21 +126,6 @@ function SpeciesForm({
             }
             required
           />
-        </div>
-
-        <div className="species-form-field">
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            value={formData.category}
-            onChange={(event) => handleChange("category", event.target.value)}
-          >
-            {categoryOptions.map((option) => (
-              <option key={option} value={option}>
-                {formatOption(option)}
-              </option>
-            ))}
-          </select>
         </div>
 
         <div className="species-form-field">
@@ -252,6 +253,23 @@ function SpeciesForm({
           </select>
         </div>
 
+        <div className="species-form-field">
+          <label htmlFor="toxicOrVenomous">Toxic or Venomous</label>
+          <select
+            id="toxicOrVenomous"
+            value={formData.toxicOrVenomous}
+            onChange={(event) =>
+              handleChange("toxicOrVenomous", event.target.value)
+            }
+          >
+            {animalSearchOptions.toxicOrVenomous.map((option) => (
+              <option key={option} value={option}>
+                {formatOption(option)}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="species-form-field species-form-field-full">
           <label htmlFor="imageUrl">Image URL</label>
           <input
@@ -263,20 +281,106 @@ function SpeciesForm({
         </div>
 
         <div className="species-form-field species-form-field-full">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Short Summary</label>
           <textarea
             id="description"
-            rows="5"
+            rows="4"
             value={formData.description}
+            onChange={(event) => handleChange("description", event.target.value)}
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="overview">Overview</label>
+          <textarea
+            id="overview"
+            rows="4"
+            value={formData.overview}
+            onChange={(event) => handleChange("overview", event.target.value)}
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="appearance">Appearance and Visible Traits</label>
+          <textarea
+            id="appearance"
+            rows="4"
+            value={formData.appearance}
+            onChange={(event) => handleChange("appearance", event.target.value)}
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="habitatDetails">Habitat Details</label>
+          <textarea
+            id="habitatDetails"
+            rows="4"
+            value={formData.habitatDetails}
             onChange={(event) =>
-              handleChange("description", event.target.value)
+              handleChange("habitatDetails", event.target.value)
             }
           />
         </div>
 
-        {errorMessage && (
-          <div className="species-form-error">{errorMessage}</div>
-        )}
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="regionDetails">Region and Range</label>
+          <textarea
+            id="regionDetails"
+            rows="4"
+            value={formData.regionDetails}
+            onChange={(event) =>
+              handleChange("regionDetails", event.target.value)
+            }
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="behavior">Behavior</label>
+          <textarea
+            id="behavior"
+            rows="4"
+            value={formData.behavior}
+            onChange={(event) => handleChange("behavior", event.target.value)}
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="identificationTips">Identification Tips</label>
+          <textarea
+            id="identificationTips"
+            rows="4"
+            value={formData.identificationTips}
+            onChange={(event) =>
+              handleChange("identificationTips", event.target.value)
+            }
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="riskToHumans">Risk to Humans</label>
+          <textarea
+            id="riskToHumans"
+            rows="4"
+            value={formData.riskToHumans}
+            onChange={(event) =>
+              handleChange("riskToHumans", event.target.value)
+            }
+          />
+        </div>
+
+        <div className="species-form-field species-form-field-full">
+          <label htmlFor="benefitsToHumans">Benefits to Humans</label>
+          <textarea
+            id="benefitsToHumans"
+            rows="4"
+            value={formData.benefitsToHumans}
+            onChange={(event) =>
+              handleChange("benefitsToHumans", event.target.value)
+            }
+          />
+        </div>
+
+        {errorMessage && <div className="species-form-error">{errorMessage}</div>}
 
         <div className="species-form-actions">
           <button
@@ -318,18 +422,27 @@ SpeciesForm.propTypes = {
     size: PropTypes.string,
     color: PropTypes.string,
     region: PropTypes.string,
+    toxicOrVenomous: PropTypes.string,
     imageUrl: PropTypes.string,
-    description: PropTypes.string
+    description: PropTypes.string,
+    overview: PropTypes.string,
+    appearance: PropTypes.string,
+    habitatDetails: PropTypes.string,
+    regionDetails: PropTypes.string,
+    behavior: PropTypes.string,
+    identificationTips: PropTypes.string,
+    riskToHumans: PropTypes.string,
+    benefitsToHumans: PropTypes.string,
   }),
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   isSaving: PropTypes.bool.isRequired,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
 };
 
 SpeciesForm.defaultProps = {
   initialData: null,
-  errorMessage: ""
+  errorMessage: "",
 };
 
 export default SpeciesForm;
