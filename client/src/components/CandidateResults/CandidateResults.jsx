@@ -1,7 +1,19 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import { createSighting } from "../../services/sightingsService";
 import "./CandidateResults.css";
-import PropTypes from "prop-types";
+
+function formatValue(value) {
+  if (!value) {
+    return "Unknown";
+  }
+
+  return value
+    .toString()
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 
 function CandidateResults({ results, hasSearched, currentUser }) {
   const [savingId, setSavingId] = useState("");
@@ -31,6 +43,15 @@ function CandidateResults({ results, hasSearched, currentUser }) {
         region: species.region || "",
         imageUrl: species.imageUrl || "",
         description: species.description || "",
+        overview: species.overview || "",
+        appearance: species.appearance || "",
+        habitatDetails: species.habitatDetails || "",
+        regionDetails: species.regionDetails || "",
+        behavior: species.behavior || "",
+        identificationTips: species.identificationTips || "",
+        riskToHumans: species.riskToHumans || "",
+        benefitsToHumans: species.benefitsToHumans || "",
+        toxicOrVenomous: species.toxicOrVenomous || "no",
         note: "",
         status: "saved",
       });
@@ -47,8 +68,8 @@ function CandidateResults({ results, hasSearched, currentUser }) {
     return (
       <section className="results-section empty-tip">
         <p>
-          Select filters and click <strong>Find Matches</strong> to see
-          candidate species.
+          Start with the traits you noticed, then click{" "}
+          <strong>Find Matches</strong> to see likely animal candidates.
         </p>
       </section>
     );
@@ -57,7 +78,10 @@ function CandidateResults({ results, hasSearched, currentUser }) {
   if (results.length === 0) {
     return (
       <section className="results-section empty-tip">
-        <p>No matching species found.</p>
+        <p>
+          No animals matched that exact combination. Try removing one or two
+          filters, especially safety or location filters, and search again.
+        </p>
       </section>
     );
   }
@@ -65,68 +89,78 @@ function CandidateResults({ results, hasSearched, currentUser }) {
   return (
     <section className="results-section">
       <div className="section-header">
-        <h2>Candidate Species</h2>
-        <p>Review likely matches and save the ones you want to track.</p>
+        <h2>Likely Animal Matches</h2>
+        <p>
+          Review the best-fitting animals based on the clues you entered, then
+          save the ones you want to revisit in My Sightings.
+        </p>
       </div>
 
       {message && <div className="status-message">{message}</div>}
 
       <div className="results-grid">
-        {results.map((r) => (
-          <article className="species-card" key={r._id}>
+        {results.map((result) => (
+          <article className="species-card" key={result._id}>
             <div className="species-image-wrap">
               <img
                 src={
-                  r.imageUrl ||
+                  result.imageUrl ||
                   "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop"
                 }
-                alt={r.commonName}
+                alt={result.commonName}
                 className="species-image"
               />
             </div>
 
             <div className="species-content">
-              <h3>{r.commonName}</h3>
+              <h3>{result.commonName}</h3>
 
               <div className="meta-row">
-                <span className="meta-pill">{r.subtype || "unknown type"}</span>
                 <span className="meta-pill">
-                  {r.region || "unknown region"}
+                  {formatValue(result.subtype || "unknown type")}
                 </span>
                 <span className="meta-pill">
-                  {r.habitat || "unknown habitat"}
+                  {formatValue(result.region || "unknown region")}
+                </span>
+                <span className="meta-pill">
+                  {formatValue(result.habitat || "unknown habitat")}
                 </span>
               </div>
 
               <div className="trait-grid">
                 <span className="trait-item">
-                  <strong>Wings:</strong> {r.hasWings || "unknown"}
+                  <strong>Wings:</strong> {formatValue(result.hasWings)}
                 </span>
                 <span className="trait-item">
-                  <strong>Tail:</strong> {r.tailType || "unknown"}
+                  <strong>Tail:</strong> {formatValue(result.tailType)}
                 </span>
                 <span className="trait-item">
-                  <strong>Legs:</strong> {r.legCount || "unknown"}
+                  <strong>Legs:</strong> {formatValue(result.legCount)}
                 </span>
                 <span className="trait-item">
-                  <strong>Size:</strong> {r.size || "unknown"}
+                  <strong>Size:</strong> {formatValue(result.size)}
                 </span>
                 <span className="trait-item">
-                  <strong>Color:</strong> {r.color || "unknown"}
+                  <strong>Color:</strong> {formatValue(result.color)}
+                </span>
+                <span className="trait-item">
+                  <strong>Toxic/Venomous:</strong>{" "}
+                  {formatValue(result.toxicOrVenomous || "no")}
                 </span>
               </div>
 
               <p className="species-description">
-                {r.description || "No additional description available."}
+                {result.description ||
+                  "No additional description is available for this species yet."}
               </p>
 
               <button
                 type="button"
                 className="primary-button"
-                onClick={() => handleSave(r)}
-                disabled={savingId === String(r._id)}
+                onClick={() => handleSave(result)}
+                disabled={savingId === String(result._id)}
               >
-                {savingId === String(r._id)
+                {savingId === String(result._id)
                   ? "Saving..."
                   : "Save to My Sightings"}
               </button>
@@ -148,6 +182,7 @@ CandidateResults.propTypes = {
       habitat: PropTypes.string,
       imageUrl: PropTypes.string,
       description: PropTypes.string,
+      toxicOrVenomous: PropTypes.string,
     })
   ).isRequired,
   hasSearched: PropTypes.bool.isRequired,

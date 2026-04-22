@@ -9,7 +9,7 @@ export const animalSearchOptions = {
     "river",
     "lake",
     "desert",
-    "coastal"
+    "coastal",
   ],
   hasWings: ["yes", "no"],
   tailType: ["none", "short", "long", "bushy", "thin", "striped", "fin-like"],
@@ -24,7 +24,8 @@ export const animalSearchOptions = {
     "yellow",
     "green",
     "red",
-    "blue"
+    "blue",
+    "pink",
   ],
   region: [
     "north-america",
@@ -32,6 +33,7 @@ export const animalSearchOptions = {
     "europe",
     "asia",
     "africa",
-    "australia"
-  ]
+    "australia",
+  ],
+  toxicOrVenomous: ["yes", "no"],
 };

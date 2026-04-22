@@ -1,5 +1,23 @@
 import { ObjectId } from "mongodb";
 import { getDB } from "../config/mongo.js";
+import {
+  inferToxicOrVenomous,
+  withDerivedSpeciesFields,
+} from "../utils/speciesEnrichment.js";
+
+const SPECIES_COLLECTION = process.env.SPECIES_COLLECTION || "species";
+
+function cleanString(value, fallback = "") {
+  if (typeof value !== "string") {
+    return fallback;
+  }
+
+  return value.trim();
+}
+
+function cleanToxicOrVenomous(value) {
+  return value === "yes" ? "yes" : "no";
+}
 
 function buildSpeciesQuery(queryParams) {
   const query = {};
@@ -10,6 +28,14 @@ function buildSpeciesQuery(queryParams) {
       { commonName: searchRegex },
       { scientificName: searchRegex },
       { description: searchRegex },
+      { overview: searchRegex },
+      { appearance: searchRegex },
+      { habitatDetails: searchRegex },
+      { regionDetails: searchRegex },
+      { behavior: searchRegex },
+      { identificationTips: searchRegex },
+      { riskToHumans: searchRegex },
+      { benefitsToHumans: searchRegex },
       { category: searchRegex },
       { subtype: searchRegex },
       { habitat: searchRegex },
@@ -39,16 +65,61 @@ function buildSpeciesQuery(queryParams) {
   return query;
 }
 
+function normalizeSpeciesPayload(body) {
+  return {
+    commonName: cleanString(body.commonName),
+    scientificName: cleanString(body.scientificName),
+    category: "animal",
+    subtype: cleanString(body.subtype),
+    habitat: cleanString(body.habitat),
+    hasWings: cleanString(body.hasWings, "no"),
+    tailType: cleanString(body.tailType, "none"),
+    legCount: cleanString(body.legCount?.toString(), "0"),
+    size: cleanString(body.size),
+    color: cleanString(body.color),
+    region: cleanString(body.region),
+    toxicOrVenomous: cleanToxicOrVenomous(body.toxicOrVenomous),
+    imageUrl: cleanString(body.imageUrl),
+    description: cleanString(body.description),
+    overview: cleanString(body.overview),
+    appearance: cleanString(body.appearance),
+    habitatDetails: cleanString(body.habitatDetails),
+    regionDetails: cleanString(body.regionDetails),
+    behavior: cleanString(body.behavior),
+    identificationTips: cleanString(body.identificationTips),
+    riskToHumans: cleanString(body.riskToHumans),
+    benefitsToHumans: cleanString(body.benefitsToHumans),
+    updatedAt: new Date(),
+  };
+}
+
+function applyDerivedFiltering(speciesList, queryParams) {
+  if (
+    queryParams.toxicOrVenomous !== "yes" &&
+    queryParams.toxicOrVenomous !== "no"
+  ) {
+    return speciesList;
+  }
+
+  return speciesList.filter(
+    (species) =>
+      inferToxicOrVenomous(species) === queryParams.toxicOrVenomous
+  );
+}
+
 export async function getAllSpecies(req, res) {
   try {
     const db = getDB();
     const query = buildSpeciesQuery(req.query);
 
-    const species = await db
-      .collection("species")
+    let species = await db
+      .collection(SPECIES_COLLECTION)
       .find(query)
       .sort({ commonName: 1 })
       .toArray();
+
+    species = species.map(withDerivedSpeciesFields);
+    species = applyDerivedFiltering(species, req.query);
 
     res.json(species);
   } catch (error) {
@@ -62,7 +133,7 @@ export async function getSpeciesById(req, res) {
     const db = getDB();
     const { id } = req.params;
 
-    const species = await db.collection("species").findOne({
+    const species = await db.collection(SPECIES_COLLECTION).findOne({
       _id: new ObjectId(id),
     });
 
@@ -70,7 +141,7 @@ export async function getSpeciesById(req, res) {
       return res.status(404).json({ error: "Species not found." });
     }
 
-    res.json(species);
+    res.json(withDerivedSpeciesFields(species));
   } catch (error) {
     console.error("Error fetching species by id:", error);
     res.status(500).json({ error: "Failed to fetch species." });
@@ -82,21 +153,8 @@ export async function createSpecies(req, res) {
     const db = getDB();
 
     const newSpecies = {
-      commonName: req.body.commonName?.trim() || "",
-      scientificName: req.body.scientificName?.trim() || "",
-      category: req.body.category?.trim() || "animal",
-      subtype: req.body.subtype?.trim() || "",
-      habitat: req.body.habitat?.trim() || "",
-      hasWings: req.body.hasWings?.trim() || "no",
-      tailType: req.body.tailType?.trim() || "none",
-      legCount: req.body.legCount?.toString()?.trim() || "0",
-      size: req.body.size?.trim() || "",
-      color: req.body.color?.trim() || "",
-      region: req.body.region?.trim() || "",
-      description: req.body.description?.trim() || "",
-      imageUrl: req.body.imageUrl?.trim() || "",
+      ...normalizeSpeciesPayload(req.body),
       createdAt: new Date(),
-      updatedAt: new Date(),
     };
 
     if (!newSpecies.commonName || !newSpecies.scientificName) {
@@ -105,13 +163,13 @@ export async function createSpecies(req, res) {
       });
     }
 
-    const result = await db.collection("species").insertOne(newSpecies);
+    const result = await db.collection(SPECIES_COLLECTION).insertOne(newSpecies);
 
-    const createdSpecies = await db.collection("species").findOne({
+    const createdSpecies = await db.collection(SPECIES_COLLECTION).findOne({
       _id: result.insertedId,
     });
 
-    res.status(201).json(createdSpecies);
+    res.status(201).json(withDerivedSpeciesFields(createdSpecies));
   } catch (error) {
     console.error("Error creating species:", error);
     res.status(500).json({ error: "Failed to create species." });
@@ -123,37 +181,21 @@ export async function updateSpecies(req, res) {
     const db = getDB();
     const { id } = req.params;
 
-    const updatedFields = {
-      commonName: req.body.commonName?.trim() || "",
-      scientificName:
-        req.body.scientName?.trim() || req.body.scientificName?.trim() || "",
-      category: req.body.category?.trim() || "animal",
-      subtype: req.body.subtype?.trim() || "",
-      habitat: req.body.habitat?.trim() || "",
-      hasWings: req.body.hasWings?.trim() || "no",
-      tailType: req.body.tailType?.trim() || "none",
-      legCount: req.body.legCount?.toString()?.trim() || "0",
-      size: req.body.size?.trim() || "",
-      color: req.body.color?.trim() || "",
-      region: req.body.region?.trim() || "",
-      description: req.body.description?.trim() || "",
-      imageUrl: req.body.imageUrl?.trim() || "",
-      updatedAt: new Date(),
-    };
+    const updatedFields = normalizeSpeciesPayload(req.body);
 
     const result = await db
-      .collection("species")
+      .collection(SPECIES_COLLECTION)
       .updateOne({ _id: new ObjectId(id) }, { $set: updatedFields });
 
     if (result.matchedCount === 0) {
       return res.status(404).json({ error: "Species not found." });
     }
 
-    const updatedSpecies = await db.collection("species").findOne({
+    const updatedSpecies = await db.collection(SPECIES_COLLECTION).findOne({
       _id: new ObjectId(id),
     });
 
-    res.json(updatedSpecies);
+    res.json(withDerivedSpeciesFields(updatedSpecies));
   } catch (error) {
     console.error("Error updating species:", error);
     res.status(500).json({ error: "Failed to update species." });
@@ -165,7 +207,7 @@ export async function deleteSpecies(req, res) {
     const db = getDB();
     const { id } = req.params;
 
-    const result = await db.collection("species").deleteOne({
+    const result = await db.collection(SPECIES_COLLECTION).deleteOne({
       _id: new ObjectId(id),
     });
 
