@@ -22,13 +22,13 @@ function formatOption(option) {
     .join(" ");
 }
 
-function SightingForm({ onSearch }) {
-  const [formData, setFormData] = useState(initialFormData);
-  const [isLoading, setIsLoading] = useState(false);
+// function SightingForm({ onSearch }) {
+//   const [formData, setFormData] = useState(initialFormData);
+//   const [isLoading, setIsLoading] = useState(false);
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-};
+//   function handleChange(event) {
+//     const { name, value } = event.target;
+// };
 
 function SightingForm({ onSearch }) {
   const [formData, setFormData] = useState(initialFormData);
