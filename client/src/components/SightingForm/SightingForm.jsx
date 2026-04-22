@@ -132,7 +132,6 @@ function SightingForm({ onSearch }) {
               htmlFor="color"
               title="Main visible body color."
             >
-              Color
             </label>
             <select
               id="color"
@@ -187,7 +186,6 @@ function SightingForm({ onSearch }) {
               htmlFor="tailType"
               title="Visible tail shape or length."
             >
-              Tail Type
             </label>
             <select
               id="tailType"
@@ -216,7 +214,6 @@ function SightingForm({ onSearch }) {
               htmlFor="legCount"
               title="Number of visible legs."
             >
-              Leg Count
             </label>
             <select
               id="legCount"
