@@ -114,6 +114,8 @@ Based on usability feedback, the project was improved in several concrete ways:
 - richer species details so entries feel more useful as encyclopedia-style profiles
 - improved support for filter combinations that previously returned weak or empty results
 - better support for safety-related questions through the **Toxic or Venomous** filter and detail section
+- Clarified the distinction between **Login** and **Register** by adding prominent red text guidance on the authentication page, helping users immediately understand which action they are performing.
+- Improved the search experience by adding clear descriptions for **Habitat** and **Region** filters, helping users distinguish between environment type and geographic location.
 
 ## Team Contributions
 - **Ruotian Zhang** implemented the **Search** and **My Sightings** features
@@ -133,3 +135,150 @@ For the final iteration, both members also contributed to design, usability, acc
 ```bash
 git clone https://github.com/fifthfir/CS5610-Proj3.git
 cd CS5610-Proj3
+cd CS5610-Proj3
+```
+
+### 2. Install dependencies
+Install the frontend dependencies:
+```bash
+cd client
+npm install
+```
+
+Then install the backend dependencies:
+```bash
+cd ../server
+npm install
+```
+
+### 3. Create the backend `.env` file
+This project includes a template file at:
+
+```text
+server/.env.example
+```
+
+The real `server/.env` file is not included in GitHub. That is intentional.
+
+To run the project locally, create your own `server/.env` file by copying `server/.env.example`.
+
+On Windows PowerShell, from inside the `server` folder:
+```powershell
+Copy-Item .env.example .env
+```
+
+On macOS/Linux, from inside the `server` folder:
+```bash
+cp .env.example .env
+```
+
+After that, you should have this file:
+```text
+server/.env
+```
+
+### 4. Edit `server/.env`
+Open `server/.env` and update the placeholder values.
+
+Your file should look like this:
+```env
+MONGO_URI=your_mongodb_connection_string_here
+DB_NAME=Project_2
+PORT=3000
+SESSION_SECRET=replace_with_a_long_random_string
+SPECIES_COLLECTION=species
+SIGHTINGS_COLLECTION=sightings
+USERS_COLLECTION=users
+ADMIN_USERNAMES=demo1
+```
+
+Update these values:
+
+- `MONGO_URI`  
+  Replace `your_mongodb_connection_string_here` with your own MongoDB connection string.
+
+- `SESSION_SECRET`  
+  Replace `replace_with_a_long_random_string` with your own secret string for local development.
+
+Leave these values unchanged unless you intentionally want different names/configuration:
+```env
+DB_NAME=Project_2
+PORT=3000
+SPECIES_COLLECTION=species
+SIGHTINGS_COLLECTION=sightings
+USERS_COLLECTION=users
+ADMIN_USERNAMES=demo1
+```
+
+Example completed file:
+```env
+MONGO_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/?retryWrites=true&w=majority
+DB_NAME=Project_2
+PORT=3000
+SESSION_SECRET=my_local_watwildlife_secret_12345
+SPECIES_COLLECTION=species
+SIGHTINGS_COLLECTION=sightings
+USERS_COLLECTION=users
+ADMIN_USERNAMES=demo1
+```
+
+### 5. Seed the database
+If you want to populate the database with sample data, run this from the `server` folder:
+```bash
+node seed.js
+```
+
+### 6. Start the backend server
+From the `server` folder:
+```bash
+npm start
+```
+
+### 7. Start the frontend
+Open a second terminal in the project root and run:
+```bash
+cd client
+npm run dev
+```
+
+### 8. Open the app
+Open the following URL:
+```text
+http://localhost:5173
+```
+
+## Troubleshooting
+
+### The `.env` file is missing from GitHub
+That is normal. The real `server/.env` file is intentionally not committed.
+
+Use `server/.env.example` to create your own local `server/.env` file.
+
+### Should I edit `.env.example`?
+No.
+
+Copy `.env.example` to `.env`, then edit `.env`.
+
+### Which values do I need to change?
+You should update:
+- `MONGO_URI`
+- `SESSION_SECRET`
+
+You should usually leave these unchanged:
+- `DB_NAME=Project_2`
+- `PORT=3000`
+- `SPECIES_COLLECTION=species`
+- `SIGHTINGS_COLLECTION=sightings`
+- `USERS_COLLECTION=users`
+- `ADMIN_USERNAMES=demo1`
+
+## About Seed Data
+To support development and testing, we use a scripted seed file `seed.js` to generate 1000+ demo data instead of relying on a large real-world wildlife dataset.
+
+Species data is created from a curated list of animal records with fixed attributes such as common name, scientific name, subtype, habitat, size, color, and region.
+
+Sightings data is then generated randomly by sampling from the inserted species and demo users.
+
+Each generated sighting copies key species fields and adds randomized values such as user, note, and status.
+
+This approach gives us a large enough dataset for searching, browsing, filtering, and user record features while keeping the project lightweight and easy to set up. Although it does not represent complete real-world wildlife data, it effectively simulates a larger dataset for demonstration, testing, and course project purposes.

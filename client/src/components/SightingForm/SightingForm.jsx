@@ -22,12 +22,20 @@ function formatOption(option) {
     .join(" ");
 }
 
+// function SightingForm({ onSearch }) {
+//   const [formData, setFormData] = useState(initialFormData);
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   function handleChange(event) {
+//     const { name, value } = event.target;
+// };
+
 function SightingForm({ onSearch }) {
   const [formData, setFormData] = useState(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  function handleChange(e) {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -37,7 +45,6 @@ function SightingForm({ onSearch }) {
   async function handleSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
-
     try {
       await onSearch(formData);
     } finally {
@@ -57,6 +64,9 @@ function SightingForm({ onSearch }) {
           Search is for moments when you do not know the animal’s name. Start
           with the visible traits you noticed, then narrow the possibilities by
           habitat, region, and a simple safety clue if that matters.
+          Choose visible traits to narrow down likely species matches. Use
+          region for where the animal was seen, and habitat for the type of
+          environment it was in.
         </p>
       </div>
 
@@ -79,6 +89,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.subtype.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -104,6 +115,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.size.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -116,6 +128,11 @@ function SightingForm({ onSearch }) {
             <p className="field-help">
               Pick the main visible color you remember most clearly.
             </p>
+            <label
+              htmlFor="color"
+              title="Main visible body color."
+            >
+            </label>
             <select
               id="color"
               name="color"
@@ -126,6 +143,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.color.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -151,6 +169,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.hasWings.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -163,6 +182,11 @@ function SightingForm({ onSearch }) {
             <p className="field-help">
               Use the tail clue only if you noticed it clearly.
             </p>
+            <label
+              htmlFor="tailType"
+              title="Visible tail shape or length."
+            >
+            </label>
             <select
               id="tailType"
               name="tailType"
@@ -173,6 +197,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.tailType.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -185,6 +210,11 @@ function SightingForm({ onSearch }) {
             <p className="field-help">
               Use the visible number of legs when it is obvious.
             </p>
+            <label
+              htmlFor="legCount"
+              title="Number of visible legs."
+            >
+            </label>
             <select
               id="legCount"
               name="legCount"
@@ -195,6 +225,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.legCount.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -224,6 +255,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.region.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -273,6 +305,7 @@ function SightingForm({ onSearch }) {
               {animalSearchOptions.toxicOrVenomous.map((item) => (
                 <option key={item} value={item}>
                   {formatOption(item)}
+                  {item}
                 </option>
               ))}
             </select>
@@ -283,7 +316,6 @@ function SightingForm({ onSearch }) {
           <button type="submit" className="primary-button" disabled={isLoading}>
             {isLoading ? "Searching..." : "Find Matches"}
           </button>
-
           <button
             type="button"
             className="secondary-button"
