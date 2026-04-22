@@ -22,6 +22,7 @@ const initialFilters = {
   size: "",
   color: "",
   region: "",
+  toxicOrVenomous: "",
 };
 
 function BrowsePage({ currentUser }) {
@@ -163,17 +164,19 @@ function BrowsePage({ currentUser }) {
           <div className="browse-header-card">
             <div className="browse-header-top">
               <div>
-                <p className="browse-eyebrow">Wildlife Encyclopedia</p>
-                <h2>Browse species by traits, habitat, and region</h2>
+                <p className="browse-eyebrow">Wildlife field guide</p>
+                <h2>Browse animal entries for learning, comparison, and discovery</h2>
                 <p>
-                  Explore species entries directly to compare traits and better
-                  connect what you observe outdoors to actual organisms in the
-                  database.
+                  Browse is the slower encyclopedia side of WatWildlife. Use it
+                  when you want to read animal profiles, compare habitats and
+                  regions, and explore what the site already knows instead of
+                  starting from an unknown sighting.
                 </p>
               </div>
 
               {isAdmin && (
                 <button
+                  type="button"
                   className="browse-admin-button"
                   onClick={handleOpenCreate}
                 >
