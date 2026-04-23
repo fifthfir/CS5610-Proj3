@@ -87,3 +87,10 @@
     flex-direction: column;
   }
 }
+
+@media (min-width: 1101px) {
+  .browse-sidebar {
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+}
